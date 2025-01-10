@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .button {
+            background-color: green;
+            color: white;
+            padding: 10px;
+            text-align: center;
+            border: none;
+            cursor: pointer;
+        }
+        .button:hover {
+            background-color: darkgreen;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Shopping Cart</h1>
+<table>
+    <thead>
+    <tr>
+        <th>Product</th>
+        <th>Price</th>
+        <th>Quantity</th>
+        <th>Total</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="cartItem : ${cartItems}">
+        <td th:text="${cartItem.product.name}"></td>
+        <td th:text="${cartItem.product.price}"></td>
+        <td th:text="${cartItem.quantity}"></td>
+        <td th:text="${cartItem.product.price * cartItem.quantity}"></td>
+    </tr>
+    </tbody>
+</table>
+
+<h2>Total Price: <span th:text="${totalPrice}"></span></h2>
+
+<h2>Recommended Products</h2>
+<ul>
+    <li th:each="recommendedProduct : ${recommendedProducts}">
+        <a th:href="@{/product/{id}(id=${recommendedProduct.productId})}" th:text="${recommendedProduct.name}"></a>
+    </li>
+</ul>
+
+<a href="#" class="button" th:href="@{'/order/' + ${shoppingCartId}}">Proceed to Checkout</a>
+</body>
+</html>
